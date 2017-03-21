@@ -15,18 +15,39 @@ import android.widget.FrameLayout;
 public class RecyclerCalendarView extends FrameLayout {
     public RecyclerCalendarView(@NonNull Context context) {
         super(context);
+
+        init();
     }
 
     public RecyclerCalendarView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        init();
     }
 
     public RecyclerCalendarView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
     }
 
     public RecyclerCalendarView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr,
             @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        init();
+    }
+
+    private RecyclerView mCalendarRecyclerView;
+
+    private CalendarAdapter mAdapter;
+
+    private void init() {
+        inflate(getContext(), R.layout.view_recycler_calendar, this);
+
+        mCalendarRecyclerView = (RecyclerView) findViewById(R.id.calendar);
+
+        mAdapter = new CalendarAdapter();
+        mCalendarRecyclerView.setAdapter(mAdapter);
     }
 }
