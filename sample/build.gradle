@@ -6,6 +6,10 @@ buildscript {
 
 repositories {
     jcenter()
+
+    maven {
+        url 'https://jitpack.io'
+    }
 }
 
 apply plugin: 'com.android.application'
