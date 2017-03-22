@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ebnbin.recyclercalendarview.RecyclerCalendarView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_calendar_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    android:background="#8000">
+    <com.ebnbin.recyclercalendarview.RecyclerCalendarView
+        android:id="@+id/recycler_calendar_view"
+        android:layout_width="312dp"
+        android:layout_height="288dp"
+        android:layout_gravity="center"/>
+</FrameLayout>

@@ -3,9 +3,44 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_calendar">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_week"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_horizontal_calendar"
+        android:paddingEnd="@dimen/padding_horizontal_calendar">
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/sunday"/>
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/monday"/>
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/tuesday"/>
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/wednesday"/>
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/thursday"/>
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/friday"/>
+        <TextView
+            style="@style/WeekTextView"
+            android:text="@string/saturday"/>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/padding_horizontal_calendar"
+        android:paddingEnd="@dimen/padding_horizontal_calendar"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"/>
 </LinearLayout>

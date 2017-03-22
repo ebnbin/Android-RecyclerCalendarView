@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_calendar">#fff</color>
+
+    <dimen name="padding_horizontal_calendar">16dp</dimen>
+    <dimen name="size_day">40dp</dimen>
+    <dimen name="size_day_text">28.28dp</dimen>
+    <dimen name="height_week">24dp</dimen>
+    <dimen name="height_month">24dp</dimen>
+    <dimen name="text_week">12sp</dimen>
+    <dimen name="text_month">13sp</dimen>
+    <dimen name="text_day">12sp</dimen>
+
+    <string name="sunday">日</string>
+    <string name="monday">一</string>
+    <string name="tuesday">二</string>
+    <string name="wednesday">三</string>
+    <string name="thursday">四</string>
+    <string name="friday">五</string>
+    <string name="saturday">六</string>
+    
+    <style name="WeekTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/text_week</item>
+    </style>
+</resources>

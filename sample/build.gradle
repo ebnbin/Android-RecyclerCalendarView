@@ -35,4 +35,5 @@ android {
 
 dependencies {
     compile project(':recyclercalendarview')
+    compile 'com.ebnbin:eb-application:0.0.3'
 }

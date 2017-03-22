@@ -1,12 +1,12 @@
 package com.ebnbin.recyclercalendarview.sample;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.ebnbin.ebapplication.base.EBActivity;
 import com.ebnbin.recyclercalendarview.RecyclerCalendarView;
 
-public final class MainActivity extends Activity {
+public final class MainActivity extends EBActivity {
     private RecyclerCalendarView mRecyclerCalendarView;
 
     @Override
