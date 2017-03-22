@@ -1,6 +1,9 @@
 package com.ebnbin.recyclercalendarview;
 
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -107,6 +110,11 @@ abstract class CalendarEntity implements MultiItemEntity {
         @NonNull
         public final String dayString;
 
+        /**
+         * 是否选中.
+         */
+        public boolean selected;
+
         private Day(@NonNull int[] date) {
             this.date = date;
 
@@ -116,6 +124,16 @@ abstract class CalendarEntity implements MultiItemEntity {
         @Override
         public int getItemType() {
             return DAY;
+        }
+
+        @Nullable
+        public Drawable getBackground() {
+            return selected ? ResHelper.getInstance().drawable_background_day_selected : null;
+        }
+
+        @ColorRes
+        public int getTextColor() {
+            return selected ? ResHelper.getInstance().color_text_day_selected : ResHelper.getInstance().color_text_day;
         }
     }
 

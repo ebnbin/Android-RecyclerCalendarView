@@ -2,15 +2,19 @@ package com.ebnbin.recyclercalendarview;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 日历 {@link RecyclerView.Adapter}.
  */
 final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, BaseViewHolder> {
-    public CalendarAdapter() {
+    CalendarAdapter() {
         super(null);
 
         addItemType(CalendarEntity.MONTH, R.layout.item_month);
@@ -19,7 +23,7 @@ final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, Ba
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CalendarEntity item) {
+    protected void convert(final BaseViewHolder helper, CalendarEntity item) {
         switch (helper.getItemViewType()) {
             case CalendarEntity.MONTH: {
                 CalendarEntity.Month month = (CalendarEntity.Month) item;
@@ -31,7 +35,19 @@ final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, Ba
             case CalendarEntity.DAY: {
                 CalendarEntity.Day day = (CalendarEntity.Day) item;
 
+                helper.convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for (Listener listener : listeners) {
+                            listener.onDayClick(helper.getLayoutPosition());
+                        }
+                    }
+                });
+
+                helper.getView(R.id.day_wrapper).setBackground(day.getBackground());
+
                 helper.setText(R.id.day, day.dayString);
+                helper.setTextColor(R.id.day, day.getTextColor());
 
                 break;
             }
@@ -61,5 +77,15 @@ final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, Ba
                 return 1;
             }
         });
+    }
+
+    //*****************************************************************************************************************
+    // Listener.
+
+    public final List<Listener> listeners = new ArrayList<>();
+
+    static abstract class Listener {
+        public void onDayClick(int position) {
+        }
     }
 }
