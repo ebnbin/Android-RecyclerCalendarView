@@ -1,5 +1,6 @@
 package com.ebnbin.recyclercalendarview;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -23,18 +24,42 @@ final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, Ba
             case CalendarEntity.MONTH: {
                 CalendarEntity.Month month = (CalendarEntity.Month) item;
 
+                helper.setText(R.id.month, month.monthString);
+
                 break;
             }
             case CalendarEntity.DAY: {
                 CalendarEntity.Day day = (CalendarEntity.Day) item;
 
-                break;
-            }
-            case CalendarEntity.EMPTY_DAY: {
-                CalendarEntity.EmptyDay emptyDay = (CalendarEntity.EmptyDay) item;
+                helper.setText(R.id.day, day.dayString);
 
                 break;
             }
         }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+        final GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
+        final int spanCount = gridLayoutManager.getSpanCount();
+
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                int itemViewType = getItemViewType(position);
+                if (itemViewType == CalendarEntity.MONTH) {
+                    return spanCount;
+                }
+
+                if (spanSizeLookup != null) {
+                    return spanSizeLookup.getSpanSize(position);
+                }
+
+                return 1;
+            }
+        });
     }
 }

@@ -1,5 +1,7 @@
 package com.ebnbin.recyclercalendarview;
 
+import android.support.annotation.NonNull;
+
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.ArrayList;
@@ -24,9 +26,39 @@ abstract class CalendarEntity implements MultiItemEntity {
 
     /**
      * 创建新的日历数据.
+     *
+     * @param yearMonthFrom
+     *         开始年月.
+     * @param yearMonthTo
+     *         结束年月.
      */
-    public static List<CalendarEntity> newCalendarEntities() {
+    @NonNull
+    public static List<CalendarEntity> newCalendarEntities(@NonNull int[] yearMonthFrom, @NonNull int[] yearMonthTo) {
         List<CalendarEntity> calendarEntities = new ArrayList<>();
+
+        for (int year = yearMonthFrom[0]; year <= yearMonthTo[0]; year++) {
+            for (int month = 1; month <= 12; month++) {
+                if (year == yearMonthFrom[0] && month < yearMonthFrom[1]
+                        || year == yearMonthTo[0] && month > yearMonthTo[1]) {
+                    continue;
+                }
+
+                CalendarEntity monthEntity = new Month(new int[]{year, month});
+                calendarEntities.add(monthEntity);
+
+                int week = CalendarUtil.getWeek(new int[]{year, month, 1});
+                for (int emptyDay = 0; emptyDay < week; emptyDay++) {
+                    CalendarEntity emptyDayEntity = new EmptyDay();
+                    calendarEntities.add(emptyDayEntity);
+                }
+
+                int daysOfMonth = CalendarUtil.getDaysOfMonth(new int[]{year, month});
+                for (int day = 1; day <= daysOfMonth; day++) {
+                    CalendarEntity dayEntity = new Day(new int[]{year, month, day});
+                    calendarEntities.add(dayEntity);
+                }
+            }
+        }
 
         return calendarEntities;
     }
@@ -35,7 +67,22 @@ abstract class CalendarEntity implements MultiItemEntity {
      * 月类型实体.
      */
     static final class Month extends CalendarEntity {
-        private Month() {
+        /**
+         * 年月.
+         */
+        @NonNull
+        public final int[] yearMonth;
+
+        /**
+         * 月字符串.
+         */
+        @NonNull
+        public final String monthString;
+
+        private Month(@NonNull int[] yearMonth) {
+            this.yearMonth = yearMonth;
+
+            monthString = "" + yearMonth[0] + "年" + yearMonth[1] + "月";
         }
 
         @Override
@@ -48,7 +95,22 @@ abstract class CalendarEntity implements MultiItemEntity {
      * 日类型实体.
      */
     static final class Day extends CalendarEntity {
-        private Day() {
+        /**
+         * 日期.
+         */
+        @NonNull
+        public final int[] date;
+
+        /**
+         * 日字符串.
+         */
+        @NonNull
+        public final String dayString;
+
+        private Day(@NonNull int[] date) {
+            this.date = date;
+
+            dayString = "" + date[2];
         }
 
         @Override
