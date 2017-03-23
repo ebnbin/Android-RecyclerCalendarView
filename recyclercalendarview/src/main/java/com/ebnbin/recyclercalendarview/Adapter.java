@@ -13,27 +13,27 @@ import java.util.List;
 /**
  * 日历 {@link RecyclerView.Adapter}.
  */
-final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, BaseViewHolder> {
-    CalendarAdapter() {
+final class Adapter extends BaseMultiItemQuickAdapter<Entity, BaseViewHolder> {
+    Adapter() {
         super(null);
 
-        addItemType(CalendarEntity.MONTH, R.layout.item_month);
-        addItemType(CalendarEntity.DAY, R.layout.item_day);
-        addItemType(CalendarEntity.EMPTY_DAY, R.layout.item_empty_day);
+        addItemType(Entity.MONTH, R.layout.item_month);
+        addItemType(Entity.DAY, R.layout.item_day);
+        addItemType(Entity.EMPTY_DAY, R.layout.item_empty_day);
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, CalendarEntity item) {
+    protected void convert(final BaseViewHolder helper, Entity item) {
         switch (helper.getItemViewType()) {
-            case CalendarEntity.MONTH: {
-                CalendarEntity.Month month = (CalendarEntity.Month) item;
+            case Entity.MONTH: {
+                Entity.Month month = (Entity.Month) item;
 
                 helper.setText(R.id.month, month.monthString);
 
                 break;
             }
-            case CalendarEntity.DAY: {
-                CalendarEntity.Day day = (CalendarEntity.Day) item;
+            case Entity.DAY: {
+                Entity.Day day = (Entity.Day) item;
 
                 helper.convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -66,7 +66,7 @@ final class CalendarAdapter extends BaseMultiItemQuickAdapter<CalendarEntity, Ba
             @Override
             public int getSpanSize(int position) {
                 int itemViewType = getItemViewType(position);
-                if (itemViewType == CalendarEntity.MONTH) {
+                if (itemViewType == Entity.MONTH) {
                     return spanCount;
                 }
 

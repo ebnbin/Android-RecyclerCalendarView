@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 日历实体.
  */
-abstract class CalendarEntity implements MultiItemEntity {
+abstract class Entity implements MultiItemEntity {
     /**
      * 月类型.
      */
@@ -36,8 +36,8 @@ abstract class CalendarEntity implements MultiItemEntity {
      *         结束年月.
      */
     @NonNull
-    public static List<CalendarEntity> newCalendarEntities(@NonNull int[] yearMonthFrom, @NonNull int[] yearMonthTo) {
-        List<CalendarEntity> calendarEntities = new ArrayList<>();
+    public static List<Entity> newCalendarEntities(@NonNull int[] yearMonthFrom, @NonNull int[] yearMonthTo) {
+        List<Entity> calendarEntities = new ArrayList<>();
 
         for (int year = yearMonthFrom[0]; year <= yearMonthTo[0]; year++) {
             for (int month = 1; month <= 12; month++) {
@@ -46,18 +46,18 @@ abstract class CalendarEntity implements MultiItemEntity {
                     continue;
                 }
 
-                CalendarEntity monthEntity = new Month(new int[]{year, month});
+                Entity monthEntity = new Month(new int[]{year, month});
                 calendarEntities.add(monthEntity);
 
-                int week = CalendarUtil.getWeek(new int[]{year, month, 1});
+                int week = Util.getWeek(new int[]{year, month, 1});
                 for (int emptyDay = 0; emptyDay < week; emptyDay++) {
-                    CalendarEntity emptyDayEntity = new EmptyDay();
+                    Entity emptyDayEntity = new EmptyDay();
                     calendarEntities.add(emptyDayEntity);
                 }
 
-                int daysOfMonth = CalendarUtil.getDaysOfMonth(new int[]{year, month});
+                int daysOfMonth = Util.getDaysOfMonth(new int[]{year, month});
                 for (int day = 1; day <= daysOfMonth; day++) {
-                    CalendarEntity dayEntity = new Day(new int[]{year, month, day});
+                    Entity dayEntity = new Day(new int[]{year, month, day});
                     calendarEntities.add(dayEntity);
                 }
             }
@@ -69,7 +69,7 @@ abstract class CalendarEntity implements MultiItemEntity {
     /**
      * 月类型实体.
      */
-    static final class Month extends CalendarEntity {
+    static final class Month extends Entity {
         /**
          * 年月.
          */
@@ -97,7 +97,7 @@ abstract class CalendarEntity implements MultiItemEntity {
     /**
      * 日类型实体.
      */
-    static final class Day extends CalendarEntity {
+    static final class Day extends Entity {
         /**
          * 日期.
          */
@@ -128,19 +128,19 @@ abstract class CalendarEntity implements MultiItemEntity {
 
         @Nullable
         public Drawable getBackground() {
-            return selected ? ResHelper.getInstance().drawable_background_day_selected : null;
+            return selected ? Res.getInstance().drawable_background_day_selected : null;
         }
 
         @ColorRes
         public int getTextColor() {
-            return selected ? ResHelper.getInstance().color_text_day_selected : ResHelper.getInstance().color_text_day;
+            return selected ? Res.getInstance().color_text_day_selected : Res.getInstance().color_text_day;
         }
     }
 
     /**
      * 空白日类型实体.
      */
-    static final class EmptyDay extends CalendarEntity {
+    static final class EmptyDay extends Entity {
         private EmptyDay() {
         }
 

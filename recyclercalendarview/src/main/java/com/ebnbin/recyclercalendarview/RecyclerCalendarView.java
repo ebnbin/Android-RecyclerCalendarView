@@ -46,10 +46,10 @@ public class RecyclerCalendarView extends FrameLayout {
     private RecyclerView mCalendarRecyclerView;
 
     private GridLayoutManager mLayoutManager;
-    private CalendarAdapter mAdapter;
+    private Adapter mAdapter;
 
     private void init() {
-        ResHelper.init(getContext());
+        Res.init(getContext());
 
         inflate(getContext(), R.layout.view_recycler_calendar, this);
 
@@ -58,8 +58,8 @@ public class RecyclerCalendarView extends FrameLayout {
         mLayoutManager = new GridLayoutManager(getContext(), 7);
         mCalendarRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CalendarAdapter();
-        mAdapter.listeners.add(new CalendarAdapter.Listener() {
+        mAdapter = new Adapter();
+        mAdapter.listeners.add(new Adapter.Listener() {
             @Override
             public void onDayClick(int position) {
                 super.onDayClick(position);
@@ -82,7 +82,7 @@ public class RecyclerCalendarView extends FrameLayout {
      *         结束年月.
      */
     public void setRange(@NonNull int[] yearMonthFrom, @NonNull int[] yearMonthTo) {
-        List<CalendarEntity> calendarEntities = CalendarEntity.newCalendarEntities(yearMonthFrom, yearMonthTo);
+        List<Entity> calendarEntities = Entity.newCalendarEntities(yearMonthFrom, yearMonthTo);
         mAdapter.setNewData(calendarEntities);
     }
 
@@ -106,9 +106,9 @@ public class RecyclerCalendarView extends FrameLayout {
      */
     private int getPosition(@NonNull int[] date) {
         for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            CalendarEntity calendarEntity = mAdapter.getItem(i);
-            if (calendarEntity instanceof CalendarEntity.Day
-                    && Arrays.equals(((CalendarEntity.Day) calendarEntity).date, date)) {
+            Entity entity = mAdapter.getItem(i);
+            if (entity instanceof Entity.Day
+                    && Arrays.equals(((Entity.Day) entity).date, date)) {
                 return i;
             }
         }
@@ -145,12 +145,12 @@ public class RecyclerCalendarView extends FrameLayout {
      * 设置位置的选中状态.
      */
     private void setPositionSelected(int position, boolean selected) {
-        CalendarEntity calendarEntity = mAdapter.getItem(position);
-        if (!(calendarEntity instanceof CalendarEntity.Day)) {
+        Entity entity = mAdapter.getItem(position);
+        if (!(entity instanceof Entity.Day)) {
             return;
         }
 
-        CalendarEntity.Day dayEntity = (CalendarEntity.Day) calendarEntity;
+        Entity.Day dayEntity = (Entity.Day) entity;
         if (dayEntity.selected == selected) {
             return;
         }
@@ -193,7 +193,7 @@ public class RecyclerCalendarView extends FrameLayout {
             return;
         }
 
-        int offset = (height - ResHelper.getInstance().dimen_size_day) / 2;
+        int offset = (height - Res.getInstance().dimen_size_day) / 2;
         mLayoutManager.scrollToPositionWithOffset(mScrollToPosition, offset);
         mScrollToPosition = -1;
     }
@@ -214,12 +214,12 @@ public class RecyclerCalendarView extends FrameLayout {
      * 回调.
      */
     private void onSelected(int position) {
-        CalendarEntity calendarEntity = mAdapter.getItem(position);
-        if (!(calendarEntity instanceof CalendarEntity.Day)) {
+        Entity entity = mAdapter.getItem(position);
+        if (!(entity instanceof Entity.Day)) {
             return;
         }
 
-        CalendarEntity.Day dayEntity = (CalendarEntity.Day) calendarEntity;
+        Entity.Day dayEntity = (Entity.Day) entity;
         int[] date = dayEntity.date;
 
         for (Listener listener : listeners) {

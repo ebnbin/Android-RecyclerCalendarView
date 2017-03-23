@@ -7,7 +7,7 @@ import java.util.Calendar;
 /**
  * 日历工具类.
  */
-final class CalendarUtil {
+final class Util {
     /**
      * 星期.
      */

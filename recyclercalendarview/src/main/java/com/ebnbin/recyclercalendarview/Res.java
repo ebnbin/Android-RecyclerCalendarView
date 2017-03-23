@@ -9,19 +9,19 @@ import com.ebnbin.eb.base.EBRuntimeException;
 /**
  * 资源帮助类.
  */
-final class ResHelper {
-    private static ResHelper sInstance;
+final class Res {
+    private static Res sInstance;
 
     public static void init(@NonNull Context context) {
         if (sInstance != null) {
             return;
         }
 
-        sInstance = new ResHelper(context);
+        sInstance = new Res(context);
     }
 
     @NonNull
-    public static ResHelper getInstance() {
+    public static Res getInstance() {
         if (sInstance == null) {
             throw new EBRuntimeException();
         }
@@ -29,7 +29,7 @@ final class ResHelper {
         return sInstance;
     }
 
-    private ResHelper(@NonNull Context context) {
+    private Res(@NonNull Context context) {
         color_text_day = context.getColor(R.color.text_day);
         color_text_day_selected = context.getColor(R.color.text_day_selected);
 
