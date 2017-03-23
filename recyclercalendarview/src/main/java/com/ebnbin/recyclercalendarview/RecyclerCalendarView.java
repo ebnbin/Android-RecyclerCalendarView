@@ -71,7 +71,16 @@ public class RecyclerCalendarView extends FrameLayout {
     }
 
     //*****************************************************************************************************************
-    // Range.
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        scrollToPosition(mScrollToPosition);
+    }
+
+    //*****************************************************************************************************************
+    // 范围.
 
     /**
      * 设置年月范围.
@@ -82,12 +91,16 @@ public class RecyclerCalendarView extends FrameLayout {
      *         结束年月.
      */
     public void setRange(@NonNull int[] yearMonthFrom, @NonNull int[] yearMonthTo) {
+        if (!Util.isRangeValid(yearMonthFrom, yearMonthTo)) {
+            return;
+        }
+
         List<Entity> calendarEntities = Entity.newCalendarEntities(yearMonthFrom, yearMonthTo);
         mAdapter.setNewData(calendarEntities);
     }
 
     //*****************************************************************************************************************
-    // Selected.
+    // 选中.
 
     /**
      * 当前选中的位置.
@@ -98,7 +111,25 @@ public class RecyclerCalendarView extends FrameLayout {
      * 选中某日期.
      */
     public void selectDate(@NonNull int[] date) {
+        selectDate(date, false);
+    }
+
+    /**
+     * 选中某日期.
+     *
+     * @param scrollToSelected
+     *         是否滚动到选中的位置.
+     */
+    public void selectDate(@NonNull int[] date, boolean scrollToSelected) {
+        if (!Util.isDateValid(date)) {
+            return;
+        }
+
         selectPosition(getPosition(date), false);
+
+        if (scrollToSelected) {
+            scrollToSelected();
+        }
     }
 
     /**
@@ -106,9 +137,8 @@ public class RecyclerCalendarView extends FrameLayout {
      */
     private int getPosition(@NonNull int[] date) {
         for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            Entity entity = mAdapter.getItem(i);
-            if (entity instanceof Entity.Day
-                    && Arrays.equals(((Entity.Day) entity).date, date)) {
+            Entity.Day dayEntity = mAdapter.getDayEntity(i);
+            if (dayEntity != null && Arrays.equals(dayEntity.date, date)) {
                 return i;
             }
         }
@@ -145,12 +175,11 @@ public class RecyclerCalendarView extends FrameLayout {
      * 设置位置的选中状态.
      */
     private void setPositionSelected(int position, boolean selected) {
-        Entity entity = mAdapter.getItem(position);
-        if (!(entity instanceof Entity.Day)) {
+        Entity.Day dayEntity = mAdapter.getDayEntity(position);
+        if (dayEntity == null) {
             return;
         }
 
-        Entity.Day dayEntity = (Entity.Day) entity;
         if (dayEntity.selected == selected) {
             return;
         }
@@ -160,21 +189,17 @@ public class RecyclerCalendarView extends FrameLayout {
     }
 
     //*****************************************************************************************************************
-    // Scroll.
-
-    private int mScrollToPosition = -1;
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        scrollToPosition(mScrollToPosition);
-    }
+    // 滚动.
 
     /**
-     * 滚动到选中到位置, 如果没有选中到位置则不滚动.
+     * 要滚动到的位置, 如果为 -1 则不滚动.
      */
-    public void scrollToSelected() {
+    private int mScrollToPosition = -1;
+
+    /**
+     * 滚动到选中到位置, 如果没有选中的位置则不滚动.
+     */
+    private void scrollToSelected() {
         scrollToPosition(mSelectedPosition);
     }
 
@@ -199,29 +224,33 @@ public class RecyclerCalendarView extends FrameLayout {
     }
 
     //*****************************************************************************************************************
-    // Callbacks and listeners.
+    // 监听器.
 
     public final List<Listener> listeners = new ArrayList<>();
 
     /**
-     * 监听.
+     * 监听器.
      */
     public interface Listener {
+        /**
+         * 选中某日期回调.
+         *
+         * @param date
+         *         选中的日期.
+         */
         void onSelected(int[] date);
     }
 
     /**
-     * 回调.
+     * 选中某日期回调.
      */
     private void onSelected(int position) {
-        Entity entity = mAdapter.getItem(position);
-        if (!(entity instanceof Entity.Day)) {
+        Entity.Day dayEntity = mAdapter.getDayEntity(position);
+        if (dayEntity == null) {
             return;
         }
 
-        Entity.Day dayEntity = (Entity.Day) entity;
         int[] date = dayEntity.date;
-
         for (Listener listener : listeners) {
             listener.onSelected(date);
         }

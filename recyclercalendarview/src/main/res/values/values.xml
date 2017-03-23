@@ -12,6 +12,8 @@
     <dimen name="text_month">13sp</dimen>
     <dimen name="text_day">12sp</dimen>
 
+    <string name="format_month">%1$d年%2$d月</string>
+    <string name="format_day">%1$d</string>
     <string name="sunday">日</string>
     <string name="monday">一</string>
     <string name="tuesday">二</string>

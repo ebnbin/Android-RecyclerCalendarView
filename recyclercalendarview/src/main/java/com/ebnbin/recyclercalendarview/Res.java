@@ -35,7 +35,11 @@ final class Res {
 
         dimen_size_day = context.getResources().getDimensionPixelSize(R.dimen.size_day);
 
+        drawable_background_day = null;
         drawable_background_day_selected = context.getDrawable(R.drawable.background_day_selected);
+
+        string_format_month = context.getString(R.string.format_month);
+        string_format_day = context.getString(R.string.format_day);
     }
 
     //*****************************************************************************************************************
@@ -45,5 +49,9 @@ final class Res {
 
     public final int dimen_size_day;
 
+    public final Drawable drawable_background_day;
     public final Drawable drawable_background_day_selected;
+
+    public final String string_format_month;
+    public final String string_format_day;
 }

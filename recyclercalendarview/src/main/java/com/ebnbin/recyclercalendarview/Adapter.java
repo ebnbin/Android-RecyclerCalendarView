@@ -1,5 +1,7 @@
 package com.ebnbin.recyclercalendarview;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,31 +25,32 @@ final class Adapter extends BaseMultiItemQuickAdapter<Entity, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, Entity item) {
+    protected void convert(BaseViewHolder helper, Entity item) {
         switch (helper.getItemViewType()) {
             case Entity.MONTH: {
-                Entity.Month month = (Entity.Month) item;
+                Entity.Month monthEntity = (Entity.Month) item;
 
-                helper.setText(R.id.month, month.monthString);
+                helper.setText(R.id.month, monthEntity.monthString);
 
                 break;
             }
             case Entity.DAY: {
-                Entity.Day day = (Entity.Day) item;
+                Entity.Day dayEntity = (Entity.Day) item;
 
+                final int position = helper.getLayoutPosition();
                 helper.convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         for (Listener listener : listeners) {
-                            listener.onDayClick(helper.getLayoutPosition());
+                            listener.onDayClick(position);
                         }
                     }
                 });
 
-                helper.getView(R.id.day_wrapper).setBackground(day.getBackground());
+                helper.getView(R.id.day_wrapper).setBackground(dayEntity.getBackground());
 
-                helper.setText(R.id.day, day.dayString);
-                helper.setTextColor(R.id.day, day.getTextColor());
+                helper.setText(R.id.day, dayEntity.dayString);
+                helper.setTextColor(R.id.day, dayEntity.getTextColor());
 
                 break;
             }
@@ -79,12 +82,55 @@ final class Adapter extends BaseMultiItemQuickAdapter<Entity, BaseViewHolder> {
         });
     }
 
-    //*****************************************************************************************************************
-    // Listener.
+    /**
+     * 返回月类型实体, 如果不存在或类型不一致则返回 {@code null}.
+     */
+    @Nullable
+    public Entity.Month getMonthEntity(int position) {
+        Entity entity = getItem(position);
+        if (!(entity instanceof Entity.Month)) {
+            return null;
+        }
 
+        return (Entity.Month) entity;
+    }
+
+    /**
+     * 返回日类型实体, 如果不存在或类型不一致则返回 {@code null}.
+     */
+    @Nullable
+    public Entity.Day getDayEntity(int position) {
+        Entity entity = getItem(position);
+        if (!(entity instanceof Entity.Day)) {
+            return null;
+        }
+
+        return (Entity.Day) entity;
+    }
+
+    /**
+     * 返回空白日类型实体, 如果不存在或类型不一致则返回 {@code null}.
+     */
+    @Nullable
+    public Entity.EmptyDay getEmptyDayEntity(int position) {
+        Entity entity = getItem(position);
+        if (!(entity instanceof Entity.EmptyDay)) {
+            return null;
+        }
+
+        return (Entity.EmptyDay) entity;
+    }
+
+    //*****************************************************************************************************************
+    // 监听器.
+
+    @NonNull
     public final List<Listener> listeners = new ArrayList<>();
 
     static abstract class Listener {
+        /**
+         * 点击日回调.
+         */
         public void onDayClick(int position) {
         }
     }

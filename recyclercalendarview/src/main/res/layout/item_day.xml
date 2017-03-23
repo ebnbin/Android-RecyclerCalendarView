@@ -15,7 +15,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:textColor="?android:attr/textColorPrimary"
+            android:textColor="@color/text_day"
             android:textSize="@dimen/text_day"/>
     </FrameLayout>
 </FrameLayout>

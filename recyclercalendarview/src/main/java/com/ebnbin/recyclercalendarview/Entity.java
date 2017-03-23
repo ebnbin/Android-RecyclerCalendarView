@@ -29,11 +29,6 @@ abstract class Entity implements MultiItemEntity {
 
     /**
      * 创建新的日历数据.
-     *
-     * @param yearMonthFrom
-     *         开始年月.
-     * @param yearMonthTo
-     *         结束年月.
      */
     @NonNull
     public static List<Entity> newCalendarEntities(@NonNull int[] yearMonthFrom, @NonNull int[] yearMonthTo) {
@@ -85,7 +80,7 @@ abstract class Entity implements MultiItemEntity {
         private Month(@NonNull int[] yearMonth) {
             this.yearMonth = yearMonth;
 
-            monthString = "" + yearMonth[0] + "年" + yearMonth[1] + "月";
+            monthString = String.format(Res.getInstance().string_format_month, yearMonth[0], yearMonth[1]);
         }
 
         @Override
@@ -118,7 +113,7 @@ abstract class Entity implements MultiItemEntity {
         private Day(@NonNull int[] date) {
             this.date = date;
 
-            dayString = "" + date[2];
+            dayString = String.format(Res.getInstance().string_format_day, date[2]);
         }
 
         @Override
@@ -126,11 +121,18 @@ abstract class Entity implements MultiItemEntity {
             return DAY;
         }
 
+        /**
+         * 背景 {@link Drawable}.
+         */
         @Nullable
         public Drawable getBackground() {
-            return selected ? Res.getInstance().drawable_background_day_selected : null;
+            return selected ? Res.getInstance().drawable_background_day_selected
+                    : Res.getInstance().drawable_background_day;
         }
 
+        /**
+         * 文本颜色.
+         */
         @ColorRes
         public int getTextColor() {
             return selected ? Res.getInstance().color_text_day_selected : Res.getInstance().color_text_day;
