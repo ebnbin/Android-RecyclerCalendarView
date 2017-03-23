@@ -160,6 +160,45 @@ public class RecyclerCalendarView extends FrameLayout {
     }
 
     //*****************************************************************************************************************
+    // Scroll.
+
+    private int mScrollToPosition = -1;
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        scrollToPosition(mScrollToPosition);
+    }
+
+    /**
+     * 滚动到选中到位置, 如果没有选中到位置则不滚动.
+     */
+    public void scrollToSelected() {
+        scrollToPosition(mSelectedPosition);
+    }
+
+    /**
+     * 滚动到指定的位置, 如果为 -1 则不滚动.
+     */
+    private void scrollToPosition(int position) {
+        mScrollToPosition = position;
+
+        if (mScrollToPosition == -1) {
+            return;
+        }
+
+        int height = mCalendarRecyclerView.getMeasuredHeight();
+        if (height <= 0) {
+            return;
+        }
+
+        int offset = (height - ResHelper.getInstance().dimen_size_day) / 2;
+        mLayoutManager.scrollToPositionWithOffset(mScrollToPosition, offset);
+        mScrollToPosition = -1;
+    }
+
+    //*****************************************************************************************************************
     // Callbacks and listeners.
 
     public final List<Listener> listeners = new ArrayList<>();

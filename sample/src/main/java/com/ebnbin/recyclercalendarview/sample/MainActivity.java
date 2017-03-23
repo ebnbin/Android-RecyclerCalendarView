@@ -20,6 +20,8 @@ public final class MainActivity extends EBActivity {
 
         mRecyclerCalendarView = (RecyclerCalendarView) findViewById(R.id.recycler_calendar_view);
         mRecyclerCalendarView.setRange(new int[]{2014, 6}, new int[]{2017, 3});
+        mRecyclerCalendarView.selectDate(new int[]{2016, 6, 20});
+        mRecyclerCalendarView.scrollToSelected();
         mRecyclerCalendarView.listeners.add(date
                 -> Toast.makeText(getContext(), Arrays.toString(date), Toast.LENGTH_SHORT).show());
     }
