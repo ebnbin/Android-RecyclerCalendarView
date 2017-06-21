@@ -1,16 +1,19 @@
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-    }
-}
-
 plugins {
     id 'com.github.dcendents.android-maven' version '1.5'
     id 'com.jfrog.bintray' version '1.7.3'
 }
 
+ext {
+    version_code = 1
+    version_name = '0.1.0'
+}
+
 repositories {
     jcenter()
+
+    maven {
+        url 'https://maven.google.com'
+    }
 
     maven {
         url 'https://jitpack.io'
@@ -18,107 +21,55 @@ repositories {
 }
 
 apply plugin: 'com.android.library'
-
-ext {
-    publishedGroupId = 'com.ebnbin'
-    artifact = 'recyclercalendarview'
-
-    libraryName = 'RecyclerCalendarView'
-    libraryDescription = 'RecyclerCalendarView'
-
-    siteUrl = 'https://github.com/ebnbin/android-recyclercalendarview'
-    gitUrl = 'https://github.com/ebnbin/android-recyclercalendarview.git'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-
-    developerId = 'ebnbin'
-    developerName = 'Ebn Zhang'
-    developerEmail = 'ebnbin@gmail.com'
-
-    libraryVersion = '0.1.0'
-
-    bintrayRepo = 'maven'
-    bintrayName = 'recyclercalendarview'
-
-    allLicenses = ['Apache-2.0']
-}
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 25
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode version_code
+        versionName version_name
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compile 'com.ebnbin:eb:0.1.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.8.9'
+//    compile project(':..:android-eb:eb')
+    compile 'com.ebnbin:eb:0.4.0'
+
+    compile "com.android.support:design:$support_version"
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.20'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+}
+
+ext {
+    publishedGroupId = 'com.ebnbin'
+    artifact = 'recyclercalendarview'
+    libraryName = 'RecyclerCalendarView'
+    libraryDescription = 'RecyclerCalendarView'
+    siteUrl = 'https://github.com/ebnbin/android-recyclercalendarview'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    developerId = 'ebnbin'
+    developerName = 'Ebn Zhang'
+    developerEmail = 'ebnbin@gmail.com'
+    gitUrl = 'https://github.com/ebnbin/android-recyclercalendarview.git'
+    libraryVersion = version_name
+    bintrayRepo = 'maven'
+    bintrayName = 'recyclercalendarview'
+    allLicenses = ['Apache-2.0']
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
 
-apply plugin: 'com.jfrog.bintray'
-
-version = libraryVersion
-
-if (project.hasProperty("android")) { // Android libraries
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    task javadoc(type: Javadoc) {
-        source = android.sourceSets.main.java.srcDirs
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-} else { // Java libraries
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    // Disables javadoc because of the bug of library dependencies.
-//    archives javadocJar
-    archives sourcesJar
-}
-
-// Bintray
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-
-    configurations = ['archives']
-    pkg {
-        repo = bintrayRepo
-        name = bintrayName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        publish = true
-        publicDownloadNumbers = true
-        version {
-            desc = libraryDescription
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password")
-                //Optional. The passphrase for GPG signing'
-            }
-        }
-    }
+tasks.withType(Javadoc) {
+    enabled = false
 }

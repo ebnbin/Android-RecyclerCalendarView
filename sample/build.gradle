@@ -1,11 +1,9 @@
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-    }
-}
-
 repositories {
     jcenter()
+
+    maven {
+        url 'https://maven.google.com'
+    }
 
     maven {
         url 'https://jitpack.io'
@@ -13,18 +11,15 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 25
-
-        jackOptions {
-            enabled true
-        }
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
     }
 
     compileOptions {
@@ -34,6 +29,8 @@ android {
 }
 
 dependencies {
-    compile project(':recyclercalendarview')
-    compile 'com.ebnbin:eb-application:0.0.3'
+    implementation project(':recyclercalendarview')
+//    implementation 'com.ebnbin:recyclercalendarview:0.1.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }

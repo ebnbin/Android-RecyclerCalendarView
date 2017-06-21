@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-import com.ebnbin.eb.base.EBRuntimeException;
+import com.ebnbin.eb.util.EBRuntimeException;
 
 /**
  * 资源帮助类.

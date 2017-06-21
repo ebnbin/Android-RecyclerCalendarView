@@ -1,6 +1,6 @@
 package com.ebnbin.recyclercalendarview.sample;
 
-import com.ebnbin.eb.base.EBApplication;
+import android.app.Application;
 
-public final class RecyclerCalendarViewSampleApplication extends EBApplication {
+public final class RecyclerCalendarViewSampleApplication extends Application {
 }

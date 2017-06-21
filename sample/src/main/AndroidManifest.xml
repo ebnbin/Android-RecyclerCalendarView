@@ -6,7 +6,8 @@
         android:name=".RecyclerCalendarViewSampleApplication"
         android:label="RecyclerCalendarView Sample">
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN"/>
