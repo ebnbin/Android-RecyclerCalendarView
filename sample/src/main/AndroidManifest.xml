@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ebnbin.recyclercalendarview.sample">
     <application
-        android:name=".RecyclerCalendarViewSampleApplication"
+        android:name=".SampleApplication"
         android:label="RecyclerCalendarView Sample">
         <activity
             android:name=".MainActivity"
