@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="width_view">312dp</dimen>
-    <dimen name="height_view">288dp</dimen>
+    <dimen name="width_view">284dp</dimen>
+    <dimen name="height_view">264dp</dimen>
     <dimen name="padding_horizontal_calendar">16dp</dimen>
-    <dimen name="size_day">40dp</dimen>
-    <dimen name="size_day_text">28.28dp</dimen>
+    <dimen name="size_day">36dp</dimen>
+    <dimen name="size_day_text">25.46dp</dimen>
     <dimen name="height_week">24dp</dimen>
     <dimen name="height_month">24dp</dimen>
     <dimen name="text_week">12sp</dimen>
