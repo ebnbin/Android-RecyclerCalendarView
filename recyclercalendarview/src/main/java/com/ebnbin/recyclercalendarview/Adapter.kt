@@ -27,16 +27,22 @@ internal class Adapter : BaseMultiItemQuickAdapter<Entity, BaseViewHolder>(null)
             Entity.DAY -> {
                 val dayEntity = item as Entity.Day
 
-                val position = helper.layoutPosition
+                helper.getView<View>(R.id.day).isEnabled = dayEntity.enabled
+
+                helper.setText(R.id.day, dayEntity.dayString)
+
+                if (!dayEntity.enabled) {
+                    return
+                }
+
                 helper.itemView.setOnClickListener {
                     for (listener in listeners) {
-                        listener.onDayClick(position)
+                        listener.onDayClick(helper.layoutPosition)
                     }
                 }
 
                 helper.getView<View>(R.id.day_wrapper).background = dayEntity.background
 
-                helper.setText(R.id.day, dayEntity.dayString)
                 helper.setTextColor(R.id.day, dayEntity.textColor)
             }
         }

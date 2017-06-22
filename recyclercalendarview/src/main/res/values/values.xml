@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_calendar">#fff</color>
-    <color name="text_day_selected">#fff</color>
-
     <dimen name="width_view">312dp</dimen>
     <dimen name="height_view">288dp</dimen>
     <dimen name="padding_horizontal_calendar">16dp</dimen>

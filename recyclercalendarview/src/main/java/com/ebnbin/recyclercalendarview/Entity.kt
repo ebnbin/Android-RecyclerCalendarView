@@ -30,8 +30,9 @@ internal abstract class Entity : MultiItemEntity {
      * 日类型实体.
      *
      * @param timestamp 日期.
+     * @param enabled 是否有效.
      */
-    internal class Day internal constructor(val timestamp: Timestamp) : Entity() {
+    internal class Day internal constructor(val timestamp: Timestamp, val enabled: Boolean) : Entity() {
         /**
          * 日字符串.
          */
@@ -105,7 +106,45 @@ internal abstract class Entity : MultiItemEntity {
 
                     val daysOfMonth = monthTimestamp.daysOfMonth
                     for (day in 1..daysOfMonth) {
-                        val dayEntity = Day(Timestamp.newInstance(year, month, day, true))
+                        val dayEntity = Day(Timestamp.newInstance(year, month, day, true), Random().nextBoolean())
+                        calendarEntities.add(dayEntity)
+                    }
+                }
+            }
+
+            return calendarEntities
+        }
+
+        /**
+         * 创建新的日历数据.
+         */
+        fun newCalendarEntities(timestamps: List<Timestamp>): List<Entity> {
+            val calendarEntities = ArrayList<Entity>()
+
+            val from = timestamps.first()
+            val to = timestamps.last()
+
+            for (year in from.year..to.year) {
+                for (month in 1..12) {
+                    if (year == from.year && month < from.month || year == to.year && month > to.month) {
+                        continue
+                    }
+
+                    val monthTimestamp = Timestamp.newInstance(year, month, 1, true)
+
+                    val monthEntity = Month(monthTimestamp)
+                    calendarEntities.add(monthEntity)
+
+                    val week = monthTimestamp.week
+                    for (emptyDay in 0..week - 1) {
+                        val emptyDayEntity = EmptyDay()
+                        calendarEntities.add(emptyDayEntity)
+                    }
+
+                    val daysOfMonth = monthTimestamp.daysOfMonth
+                    for (day in 1..daysOfMonth) {
+                        val dayTimestamp = Timestamp.newInstance(year, month, day, true)
+                        val dayEntity = Day(dayTimestamp, timestamps.contains(dayTimestamp))
                         calendarEntities.add(dayEntity)
                     }
                 }

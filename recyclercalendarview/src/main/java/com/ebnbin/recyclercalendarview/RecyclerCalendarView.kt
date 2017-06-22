@@ -95,6 +95,14 @@ class RecyclerCalendarView : FrameLayout {
         adapter.setNewData(calendarEntities)
     }
 
+    /**
+     * 设置年月范围.
+     */
+    fun setRange(timestamps: List<Timestamp>) {
+        val calendarEntities = Entity.newCalendarEntities(timestamps)
+        adapter.setNewData(calendarEntities)
+    }
+
     //*****************************************************************************************************************
     // 选中.
 
