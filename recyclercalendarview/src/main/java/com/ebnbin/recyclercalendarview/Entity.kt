@@ -51,13 +51,15 @@ internal abstract class Entity : MultiItemEntity {
          * 背景 [Drawable].
          */
         val background: Drawable?
-            get() = if (selected) Res.drawable_background_day_selected else Res.drawable_background_day
+            get() = if (enabled && selected) Res.drawable_background_day_selected else Res.drawable_background_day
 
         /**
          * 文本颜色.
          */
         val textColor: Int
-            @ColorInt get() = if (selected) Res.color_text_day_selected else Res.color_text_day
+            @ColorInt get() = if (!enabled) Res.color_text_day_disabled
+            else if (selected) Res.color_text_day_selected
+            else Res.color_text_day
     }
 
     /**

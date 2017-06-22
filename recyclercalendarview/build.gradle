@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-//    compile project(':..:android-eb:eb')
-    compile 'com.ebnbin:eb:0.4.1'
+    compile project(':..:android-eb:eb')
+//    compile 'com.ebnbin:eb:0.4.1'
 
     compile "com.android.support:design:$support_version"
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.20'

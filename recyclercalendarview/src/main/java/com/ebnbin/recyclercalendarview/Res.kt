@@ -20,6 +20,11 @@ internal object Res {
     val color_text_day_selected: Int by lazy {
         EBUtil.getColorAttr(context, android.R.attr.textColorPrimaryInverse)
     }
+    val color_text_day_disabled: Int by lazy {
+        val a = EBUtil.getFloatAttr(context, android.R.attr.disabledAlpha)
+        val rgb = EBUtil.getColorAttr(context, android.R.attr.textColorPrimary)
+        EBUtil.argb(a, rgb)
+    }
 
     val dimen_size_day: Int by lazy {
         context.resources.getDimensionPixelSize(R.dimen.size_day)

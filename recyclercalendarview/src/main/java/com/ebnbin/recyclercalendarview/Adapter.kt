@@ -31,14 +31,12 @@ internal class Adapter : BaseMultiItemQuickAdapter<Entity, BaseViewHolder>(null)
 
                 helper.setText(R.id.day, dayEntity.dayString)
 
-                if (!dayEntity.enabled) {
-                    return
-                }
-
                 helper.itemView.setOnClickListener {
-                    for (listener in listeners) {
-                        listener.onDayClick(helper.layoutPosition)
-                    }
+                    if (dayEntity.enabled) {
+                        for (listener in listeners) {
+                            listener.onDayClick(helper.layoutPosition)
+                        }
+                    } else return@setOnClickListener
                 }
 
                 helper.getView<View>(R.id.day_wrapper).background = dayEntity.background
