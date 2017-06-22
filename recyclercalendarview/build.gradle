@@ -4,8 +4,8 @@ plugins {
 }
 
 ext {
-    version_code = 4
-    version_name = '0.1.3'
+    version_code = 5
+    version_name = '0.1.4'
 }
 
 repositories {
@@ -41,8 +41,8 @@ android {
 }
 
 dependencies {
-    compile project(':..:android-eb:eb')
-//    compile 'com.ebnbin:eb:0.4.1'
+//    compile project(':..:android-eb:eb')
+    compile 'com.ebnbin:eb:0.4.2'
 
     compile "com.android.support:design:$support_version"
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.20'
