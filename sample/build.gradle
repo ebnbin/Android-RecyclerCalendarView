@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation project(':recyclercalendarview')
-//    implementation 'com.ebnbin:recyclercalendarview:0.1.0'
+//    implementation 'com.ebnbin:recyclercalendarview:0.1.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
