@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
     <com.ebnbin.recyclercalendarview.RecyclerCalendarView
         android:id="@+id/recycler_calendar_view"
-        android:layout_width="312dp"
-        android:layout_height="288dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 </FrameLayout>

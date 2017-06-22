@@ -6,7 +6,8 @@ import android.support.annotation.StyleRes
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.view.View
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.ebnbin.eb.util.Timestamp
 import java.util.*
@@ -58,7 +59,12 @@ class RecyclerCalendarView : FrameLayout {
     private fun init() {
         Res.init(context)
 
-        View.inflate(context, R.layout.view_recycler_calendar, this)
+        val rootView = LayoutInflater.from(context).inflate(R.layout.view_recycler_calendar, this, false)
+        val width = resources.getDimensionPixelOffset(R.dimen.width_view)
+        val height = resources.getDimensionPixelOffset(R.dimen.height_view)
+        val params = FrameLayout.LayoutParams(width, height)
+        params.gravity = Gravity.CENTER
+        addView(rootView, params)
 
         calendarRecyclerView
     }

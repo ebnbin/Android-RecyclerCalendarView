@@ -3,6 +3,8 @@
     <color name="background_calendar">#fff</color>
     <color name="text_day_selected">#fff</color>
 
+    <dimen name="width_view">312dp</dimen>
+    <dimen name="height_view">288dp</dimen>
     <dimen name="padding_horizontal_calendar">16dp</dimen>
     <dimen name="size_day">40dp</dimen>
     <dimen name="size_day_text">28.28dp</dimen>
