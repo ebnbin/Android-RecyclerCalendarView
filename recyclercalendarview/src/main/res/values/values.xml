@@ -20,7 +20,11 @@
     <string name="thursday">四</string>
     <string name="friday">五</string>
     <string name="saturday">六</string>
-    
+    <string name="recycler_date_picker_format_year">%1$d年</string>
+    <string name="recycler_date_picker_format_month_day">%1$d月%2$d日</string>
+    <string name="recycler_date_picker_ok">确定</string>
+    <string name="recycler_date_picker_cancel">取消</string>
+
     <style name="WeekTextView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
