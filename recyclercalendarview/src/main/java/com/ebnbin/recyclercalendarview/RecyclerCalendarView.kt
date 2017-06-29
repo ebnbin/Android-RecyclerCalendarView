@@ -35,7 +35,7 @@ class RecyclerCalendarView : FrameLayout {
     }
 
     private val calendarRecyclerView: RecyclerView by lazy {
-        val result = findViewById<RecyclerView>(R.id.calendar)
+        val result = findViewById(R.id.calendar) as RecyclerView
         result.layoutManager = layoutManager
         result.adapter = adapter
         result

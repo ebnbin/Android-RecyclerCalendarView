@@ -40,7 +40,7 @@ class RecyclerDatePickerSupportDialogFragment : DialogFragment() {
     private var rootView: ViewGroup? = null
 
     private val recyclerCalendarView: RecyclerCalendarView by lazy {
-        val result = rootView!!.findViewById<RecyclerCalendarView>(R.id.recycler_calendar_view)
+        val result = rootView!!.findViewById(R.id.recycler_calendar_view) as RecyclerCalendarView
         result.setRange(timestamps)
         result.selectDate(selectedTimestamp, true)
         result.listeners.add(object : RecyclerCalendarView.Listener {
@@ -56,20 +56,20 @@ class RecyclerDatePickerSupportDialogFragment : DialogFragment() {
     }
 
     private val yearTextView: TextView by lazy {
-        val result = rootView!!.findViewById<TextView>(R.id.year)
+        val result = rootView!!.findViewById(R.id.year) as TextView
         result.text = getString(R.string.recycler_date_picker_format_year, currentTimestamp.year)
         result
     }
 
     private val monthDayTextView: TextView by lazy {
-        val result = rootView!!.findViewById<TextView>(R.id.month_day)
+        val result = rootView!!.findViewById(R.id.month_day) as TextView
         result.text = getString(R.string.recycler_date_picker_format_month_day,
                 currentTimestamp.month, currentTimestamp.day)
         result
     }
 
     private val okButton: Button by lazy {
-        val result = rootView!!.findViewById<Button>(R.id.ok)
+        val result = rootView!!.findViewById(R.id.ok) as Button
 
         result.setOnClickListener {
             callback.onSelected(currentTimestamp)
@@ -80,7 +80,7 @@ class RecyclerDatePickerSupportDialogFragment : DialogFragment() {
     }
 
     private val cancelButton: Button by lazy {
-        val result = rootView!!.findViewById<Button>(R.id.cancel)
+        val result = rootView!!.findViewById(R.id.cancel) as Button
 
         result.setOnClickListener {
             dismiss()
