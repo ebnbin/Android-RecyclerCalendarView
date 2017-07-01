@@ -1,17 +1,6 @@
-repositories {
-    jcenter()
-
-    maven {
-        url 'https://maven.google.com'
-    }
-
-    maven {
-        url 'https://jitpack.io'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -21,16 +10,8 @@ android {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
     implementation project(':recyclercalendarview')
-//    implementation 'com.ebnbin:recyclercalendarview:0.1.4'
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }

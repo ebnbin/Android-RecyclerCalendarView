@@ -8,20 +8,9 @@ ext {
     version_name = '0.1.4'
 }
 
-repositories {
-    jcenter()
-
-    maven {
-        url 'https://maven.google.com'
-    }
-
-    maven {
-        url 'https://jitpack.io'
-    }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -33,20 +22,12 @@ android {
         versionCode version_code
         versionName version_name
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 dependencies {
-    compile project(':..:android-eb:eb')
-//    compile 'com.ebnbin:eb:0.4.2'
-
+    compile isRelease ? 'com.ebnbin:eb:0.4.2' : project(':..:android-eb:eb')
     compile "com.android.support:design:$support_version"
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 
 ext {
