@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.ebnbin.eb.util.Timestamp
-import java.util.*
+import java.util.ArrayList
 
 /**
  * 日历实体.
@@ -107,9 +107,8 @@ internal abstract class Entity : MultiItemEntity {
                     }
 
                     val daysOfMonth = monthTimestamp.daysOfMonth
-                    for (day in 1..daysOfMonth) {
-                        val dayEntity = Day(Timestamp.newInstance(year, month, day, true), Random().nextBoolean())
-                        calendarEntities.add(dayEntity)
+                    (1..daysOfMonth).mapTo(calendarEntities) {
+                        Day(Timestamp.newInstance(year, month, it, true), true)
                     }
                 }
             }
@@ -144,11 +143,9 @@ internal abstract class Entity : MultiItemEntity {
                     }
 
                     val daysOfMonth = monthTimestamp.daysOfMonth
-                    for (day in 1..daysOfMonth) {
-                        val dayTimestamp = Timestamp.newInstance(year, month, day, true)
-                        val dayEntity = Day(dayTimestamp, timestamps.contains(dayTimestamp))
-                        calendarEntities.add(dayEntity)
-                    }
+                    (1..daysOfMonth)
+                            .map { Timestamp.newInstance(year, month, it, true) }
+                            .mapTo(calendarEntities) { Day(it, timestamps.contains(it)) }
                 }
             }
 

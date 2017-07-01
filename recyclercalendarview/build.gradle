@@ -3,11 +3,6 @@ plugins {
     id 'com.jfrog.bintray' version '1.7.3'
 }
 
-ext {
-    version_code = 5
-    version_name = '0.1.4'
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -19,15 +14,14 @@ android {
     defaultConfig {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
-        versionCode version_code
-        versionName version_name
     }
 }
 
 dependencies {
-    compile isRelease ? 'com.ebnbin:eb:0.4.2' : project(':..:android-eb:eb')
-    compile "com.android.support:design:$support_version"
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile is_release ? "com.ebnbin:eb:$version_eb" : project(':..:android-eb:eb')
+    compile "com.android.support:appcompat-v7:$version_support"
+    compile "com.android.support:recyclerview-v7:$version_support"
+    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$version_base_recycler_view_adapter_helper"
 }
 
 ext {
@@ -42,7 +36,7 @@ ext {
     developerName = 'Ebn Zhang'
     developerEmail = 'ebnbin@gmail.com'
     gitUrl = 'https://github.com/ebnbin/android-recyclercalendarview.git'
-    libraryVersion = version_name
+    libraryVersion = version_eb
     bintrayRepo = 'maven'
     bintrayName = 'recyclercalendarview'
     allLicenses = ['Apache-2.0']

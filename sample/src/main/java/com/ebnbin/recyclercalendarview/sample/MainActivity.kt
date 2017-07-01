@@ -13,13 +13,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val recyclerCalendarView = findViewById<RecyclerCalendarView>(R.id.recycler_calendar_view)
-        recyclerCalendarView.setRange(arrayListOf(
-                Timestamp.newInstance(2017, 1, 2, true),
-                Timestamp.newInstance(2017, 1, 3, true),
-                Timestamp.newInstance(2017, 1, 4, true),
-                Timestamp.newInstance(2017, 1, 5, true),
-                Timestamp.newInstance(2017, 1, 7, true)))
+        val recyclerCalendarView = findViewById(R.id.recycler_calendar_view) as RecyclerCalendarView
+        recyclerCalendarView.setRange(Timestamp.newInstance(2014, 1, 1, true),
+                Timestamp.newInstance(2019, 12, 31, true))
         recyclerCalendarView.selectDate(Timestamp.newInstance(2017, 6, 20, true), true)
         recyclerCalendarView.listeners.add(object : RecyclerCalendarView.Listener {
             override fun onSelected(date: Timestamp) {
