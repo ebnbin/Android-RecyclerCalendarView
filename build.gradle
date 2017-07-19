@@ -21,7 +21,12 @@ allprojects {
         target_sdk_version = 25
 
         // Dependencies config.
+        version_ahbottomnavigation = '2.0.6' // https://github.com/aurelhubert/ahbottomnavigation
+        version_android_advanced_web_view = 'v3.0.0' // https://github.com/delight-im/Android-AdvancedWebView
         version_base_recycler_view_adapter_helper = '2.9.24' // https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+        version_gson = '2.8.1' // https://github.com/google/gson
+        version_okhttp = '3.8.1' // https://github.com/square/okhttp
+        version_picasso = '2.5.2' // https://github.com/square/picasso
         version_support = '25.4.0' // https://developer.android.com/topic/libraries/support-library/revisions.html
 
         // Libraries config.

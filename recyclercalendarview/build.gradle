@@ -19,9 +19,6 @@ android {
 
 dependencies {
     compile is_release ? "com.ebnbin:eb:$version_eb" : project(':..:android-eb:eb')
-    compile "com.android.support:appcompat-v7:$version_support"
-    compile "com.android.support:recyclerview-v7:$version_support"
-    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$version_base_recycler_view_adapter_helper"
 }
 
 ext {
